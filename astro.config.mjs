@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
-
-// https://astro.build/config
-export default defineConfig({});
+export default {
+    site: 'https://ignaciocorrecher.github.io',
+    base: '/ignaciocorrecher.github.io/',
+};
