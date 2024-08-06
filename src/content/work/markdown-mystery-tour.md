@@ -1,14 +1,15 @@
 ---
-title: Markdown Mystery Tour
-publishDate: 2020-03-02 00:00:00
+title: Gender Pay Gap Analysis
+publishDate: 2023-06-29 00:00:00
 img: /assets/stock-1.jpg
-img_alt: Iridescent ripples of a bright blue and pink liquid
+img_alt: Gender Pay Gap
 description: |
-  We designed a whodunnit-style game to introduce Markdown formatting. Suspense — suspicion — syntax!
+    We analyzed the gender pay gap in the US, visualized the data and developed several models to predict gender based on several factors.
 tags:
-  - Design
-  - Dev
-  - User Testing
+    - Data Cleaning
+    - Visualization
+    - Machine Leaning
+    - R
 ---
 
 ## Level-two heading
@@ -31,5 +32,5 @@ Aenean pretium purus augue, ut bibendum erat convallis quis. Cras condimentum qu
 
 #### Level-four heading
 
-- We noted this
-- And also this other point
+-   We noted this
+-   And also this other point
