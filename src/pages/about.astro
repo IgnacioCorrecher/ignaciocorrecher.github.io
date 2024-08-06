@@ -13,10 +13,11 @@ import Hero from '../components/Hero.astro';
 				tagline="Thanks for stopping by. Here you can learn more about myself, my background and take a look at my CV."
 			>
 				<img
-					width="1553"
-					height="873"
+					width="480"
+					height="620"
 					src="/assets/portrait.webp"
 					alt="Ignacio Correcher"
+					class="portrait_about"
 				/>
 			</Hero>
 
@@ -72,6 +73,12 @@ import Hero from '../components/Hero.astro';
 		margin-top: 1.5rem;
 		border-radius: 1.5rem;
 		box-shadow: var(--shadow-md);
+	}
+
+	.portrait_about{
+		aspect-ratio: 3 / 4;
+		border-radius: 4.5rem;
+		object-fit: cover;
 	}
 
 	section {
