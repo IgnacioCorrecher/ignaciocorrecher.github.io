@@ -28,20 +28,31 @@ const {
 <script is:inline>
 	// This code is inlined in the head to make dark mode instant & blocking.
 	const getThemePreference = () => {
-		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-			return localStorage.getItem('theme');
-		}
-		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	  console.log('Getting theme preference');
+	  // Remove any existing theme from localStorage
+	  if (typeof localStorage !== 'undefined') {
+		localStorage.removeItem('theme');
+	  }
+	  console.log('Defaulting to dark theme');
+	  return 'dark'; // Always default to dark
 	};
-	const isDark = getThemePreference() === 'dark';
-	document.documentElement.classList[isDark ? 'add' : 'remove']('theme-dark');
-
+  
+	const theme = getThemePreference();
+	console.log('Theme set to:', theme);
+  
+	// Force dark theme
+	document.documentElement.classList.add('theme-dark');
+	console.log('Forced dark theme');
+  
 	if (typeof localStorage !== 'undefined') {
-		// Watch the document element and persist user preference when it changes.
-		const observer = new MutationObserver(() => {
-			const isDark = document.documentElement.classList.contains('theme-dark');
-			localStorage.setItem('theme', isDark ? 'dark' : 'light');
-		});
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	  // Set the theme in localStorage
+	  localStorage.setItem('theme', 'dark');
+	  console.log('Dark theme set in localStorage');
 	}
-</script>
+  
+	// Ensure the theme is applied after the page loads
+	window.addEventListener('DOMContentLoaded', (event) => {
+	  document.documentElement.classList.add('theme-dark');
+	  console.log('Reapplied dark theme after DOMContentLoaded');
+	});
+  </script>

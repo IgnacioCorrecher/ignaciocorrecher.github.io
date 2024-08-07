@@ -1,10 +1,9 @@
 ---
 title: Gender Pay Gap Analysis
-publishDate: 2023-06-29 00:00:00
-img: /assets/stock-1.jpg
+publishDate: 2023-06-29
+img: /assets/projects/genderpaygap/header.webp
 img_alt: Gender Pay Gap
-description: |
-    We analyzed the gender pay gap in the US, visualized the data and developed several models to predict gender based on several factors.
+description: We analyzed the gender pay gap in the US, visualized the data and developed several models to predict gender based on several factors.
 tags:
     - Data Cleaning
     - Visualization

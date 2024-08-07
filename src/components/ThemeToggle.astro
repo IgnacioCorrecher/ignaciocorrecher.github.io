@@ -2,7 +2,7 @@
 import Icon from './Icon.astro';
 ---
 
-<theme-toggle>
+<theme-toggle transition:persist="theme-toggle">
 	<button>
 		<span class="sr-only">Dark theme</span>
 		<span class="icon light"><Icon icon="sun" /></span>
@@ -72,24 +72,28 @@ import Icon from './Icon.astro';
 		constructor() {
 			super();
 
-			const button = this.querySelector('button')!;
+			const button = this.querySelector('button');
 
-			/** Set the theme to dark/light mode. */
-			const setTheme = (dark: boolean) => {
+			const setTheme = (dark) => {
 				document.documentElement.classList[dark ? 'add' : 'remove']('theme-dark');
 				button.setAttribute('aria-pressed', String(dark));
+				localStorage.setItem('theme-dark', dark);
 			};
 
-			// Toggle the theme when a user clicks the button.
-			button.addEventListener('click', () => setTheme(!this.isDark()));
+			const getStoredTheme = () => {
+				return localStorage.getItem('theme-dark') === 'true';
+			};
 
-			// Initialize button state to reflect current theme.
-			setTheme(this.isDark());
-		}
+			const isDark = () => {
+				return document.documentElement.classList.contains('theme-dark');
+			};
 
-		isDark() {
-			return document.documentElement.classList.contains('theme-dark');
+			button.addEventListener('click', () => setTheme(!isDark()));
+
+			const storedTheme = getStoredTheme();
+			setTheme(storedTheme ?? true); 
 		}
 	}
+
 	customElements.define('theme-toggle', ThemeToggle);
 </script>

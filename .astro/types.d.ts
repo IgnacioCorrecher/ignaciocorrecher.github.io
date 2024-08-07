@@ -126,9 +126,16 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"work": {
-"markdown-mystery-tour.md": {
-	id: "markdown-mystery-tour.md";
-  slug: "markdown-mystery-tour";
+"CNNPaintingClassifier.md": {
+	id: "CNNPaintingClassifier.md";
+  slug: "cnnpaintingclassifier";
+  body: string;
+  collection: "work";
+  data: InferEntrySchema<"work">
+} & { render(): Render[".md"] };
+"GenderPayGap.md": {
+	id: "GenderPayGap.md";
+  slug: "genderpaygap";
   body: string;
   collection: "work";
   data: InferEntrySchema<"work">
