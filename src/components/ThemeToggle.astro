@@ -77,11 +77,11 @@ import Icon from './Icon.astro';
 			const setTheme = (dark) => {
 				document.documentElement.classList[dark ? 'add' : 'remove']('theme-dark');
 				button.setAttribute('aria-pressed', String(dark));
-				localStorage.setItem('theme-dark', dark);
+				localStorage.setItem('theme', dark ? 'dark' : 'light');
 			};
 
 			const getStoredTheme = () => {
-				return localStorage.getItem('theme-dark') === 'true';
+				return localStorage.getItem('theme') === 'dark';
 			};
 
 			const isDark = () => {
@@ -91,7 +91,7 @@ import Icon from './Icon.astro';
 			button.addEventListener('click', () => setTheme(!isDark()));
 
 			const storedTheme = getStoredTheme();
-			setTheme(storedTheme ?? true); 
+			setTheme(storedTheme ?? true); // Default to dark mode if no saved theme.
 		}
 	}
 

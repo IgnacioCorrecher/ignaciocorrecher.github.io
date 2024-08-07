@@ -14,7 +14,7 @@ const {
 
 <meta charset="UTF-8" />
 <meta name="description" property="og:description" content={description} />
-<meta name="viewport" content="width=device-width" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="generator" content={Astro.generator} />
 <title>{title}</title>
 
@@ -28,31 +28,29 @@ const {
 <script is:inline>
 	// This code is inlined in the head to make dark mode instant & blocking.
 	const getThemePreference = () => {
-	  console.log('Getting theme preference');
-	  // Remove any existing theme from localStorage
-	  if (typeof localStorage !== 'undefined') {
-		localStorage.removeItem('theme');
-	  }
-	  console.log('Defaulting to dark theme');
-	  return 'dark'; // Always default to dark
+		// Check localStorage for the theme preference
+		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+			return localStorage.getItem('theme');
+		}
+		return 'dark'; // Default to dark mode if no preference is found
 	};
-  
+
+	const setTheme = (theme) => {
+		document.documentElement.classList[theme === 'dark' ? 'add' : 'remove']('theme-dark');
+		if (typeof localStorage !== 'undefined') {
+			localStorage.setItem('theme', theme);
+		}
+	};
+
 	const theme = getThemePreference();
-	console.log('Theme set to:', theme);
-  
-	// Force dark theme
-	document.documentElement.classList.add('theme-dark');
-	console.log('Forced dark theme');
-  
+	setTheme(theme);
+
 	if (typeof localStorage !== 'undefined') {
-	  // Set the theme in localStorage
-	  localStorage.setItem('theme', 'dark');
-	  console.log('Dark theme set in localStorage');
+		// Watch the document element and persist user preference when it changes.
+		const observer = new MutationObserver(() => {
+			const isDark = document.documentElement.classList.contains('theme-dark');
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 	}
-  
-	// Ensure the theme is applied after the page loads
-	window.addEventListener('DOMContentLoaded', (event) => {
-	  document.documentElement.classList.add('theme-dark');
-	  console.log('Reapplied dark theme after DOMContentLoaded');
-	});
-  </script>
+</script>
