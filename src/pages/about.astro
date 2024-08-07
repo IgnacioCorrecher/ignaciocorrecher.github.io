@@ -12,48 +12,53 @@ import Hero from '../components/Hero.astro';
 				title="About"
 				tagline="Thanks for stopping by. Here you can learn more about myself, my background and take a look at my CV."
 			>
-				<img
-					width="480"
-					height="620"
-					src="/assets/portrait.webp"
-					alt="Ignacio Correcher"
-					class="portrait_about"
-				/>
+				
 			</Hero>
 
 			<section>
 				<h2 class="section-title">Background</h2>
-				<div class="content">
+				<div class="content" style="margin-left: -15px;">
+					<img
+						width="480"
+						height="620"
+						src="/assets/portrait.webp"
+						alt="Ignacio Correcher"
+						class="portrait_about"
+					/>
 					<p>
-						Lorem ipsum dolor sit amet, <a href="https://astro.build/">Astro</a> makes people happy.
-						Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin nibh nisl condimentum
-						id venenatis a condimentum vitae. Dapibus ultrices in iaculis nunc. Arcu odio ut sem nulla
-						pharetra diam sit amet. Diam quis enim lobortis scelerisque fermentum dui faucibus in ornare.
+						Passionate Mathematician & Data Scientist, excelling in AI and ML with tools like Python or R. I have worked in several companies, including a consulting role at a leading tech company in Spain, my projects where focused on the banking industry, helping CaixaBank build robust pipelines for their customers. <br> 
 					</p>
 					<p>
-						Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Eget gravida cum sociis
-						natoque penatibus. Cras fermentum odio eu feugiat pretium nibh. Proin nibh nisl
-						condimentum id venenatis. Porta nibh venenatis cras sed felis eget velit. Id diam vel
-						quam elementum pulvinar etiam non.
-					</p>
-					<p>
-						Ultrices tincidunt arcu non sodales neque sodales ut. Sed enim ut sem viverra aliquet
-						eget sit amet. Lacus luctus accumsan tortor posuere ac ut consequat semper viverra.
-						Viverra accumsan in nisl nisi scelerisque eu ultrices. In massa tempor nec feugiat nisl
-						pretium fusce.
+						<br> I consider myself a rapid learner, I thrive in team settings, blending analytical skills with imaginative problem-solving. My educational foundation in Mathematics from Universidad de Valencia and Big Data & Business Analytics masters at Universidad Complutense de Madrid underpins my proficiency. 
+						Skilled in Python, R, TensorFlow, and PyTorch, my notable projects include CNN-based painting classification and gender pay gap studies, showcasing my analytical depth and creative approach.
 					</p>
 				</div>
 			</section>
 			<section>
 				<h2 class="section-title">Education</h2>
 				<div class="content">
-					<p>Corporis voluptates tenetur laudantium.</p>
+					<ul style="margin-left: -40px;">
+						<li>Deep Learning Specialization, 2024 @ Coursera</li>
+						<li>Big Data & Business Analytics, 2023 @ Universidad Complutense de Madrid</li>
+						<li>Google Data Analytics Certificate, 2023 @ Coursera</li>
+						<li>Mathematics, 2023 @ Universidad de Valencia</li>
+					</ul>
 				</div>
 			</section>
 			<section>
 				<h2 class="section-title">Skills</h2>
 				<div class="content">
-					<p>officia unde omnis</p>
+					<ul class = "skills">
+						<li>Python</li>
+						<li>R</li>
+						<li>TensorFlow</li>
+						<li>PyTorch</li>
+						<li>SQL</li>
+						<li>Data Visualization</li>
+						<li>Machine Learning</li>
+						<li>Deep Learning</li>
+						<li>Statistics</li>
+					</ul>
 				</div>
 			</section>
 		</main>
@@ -79,6 +84,11 @@ import Hero from '../components/Hero.astro';
 		aspect-ratio: 3 / 4;
 		border-radius: 4.5rem;
 		object-fit: cover;
+		object-position: bottom;
+		float: right;
+		margin-left: 50px;
+		margin-top: 0px;
+		height: 505px;
 	}
 
 	section {
@@ -86,6 +96,11 @@ import Hero from '../components/Hero.astro';
 		flex-direction: column;
 		gap: 0.5rem;
 		color: var(--gray-200);
+	}
+
+	.skills {
+		columns: 3;
+		padding-left: 0;
 	}
 
 	.section-title {
@@ -96,6 +111,8 @@ import Hero from '../components/Hero.astro';
 
 	.content {
 		grid-column: 2 / 4;
+		text-align: justify;
+		padding: 2% 0%;
 	}
 
 	.content :global(a) {
@@ -121,7 +138,9 @@ import Hero from '../components/Hero.astro';
 
 		section {
 			display: contents;
+			grid-column: 2;
 			font-size: var(--text-lg);
 		}
+
 	}
 </style>
