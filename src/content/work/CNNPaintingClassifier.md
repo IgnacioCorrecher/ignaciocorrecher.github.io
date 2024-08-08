@@ -12,25 +12,94 @@ tags:
     - R
 ---
 
-## Level-two heading
+## Table of Contents
 
-> Tell me and I forget. Teach me and I remember. Involve me and I learn.
+1. [Introduction](#introduction)
+2. [Analysis of the Dataset](#analysis-of-the-dataset)
+    - [Study of the Database and Data Acquisition](#study-of-the-database-and-data-acquisition)
+    - [Data Filtering and Cleaning](#data-filtering-and-cleaning)
+    - [Image Acquisition](#image-acquisition)
+    - [Final Data Validation](#final-data-validation)
+    - [Data Preparation](#data-preparation)
+3. [Convolutional Neural Networks (CNN)](#convolutional-neural-networks-cnn)
+    - [CNN Models](#cnn-models)
+        - [Model 1: Standard Model without Regularization](#model-1-standard-model-without-regularization)
+        - [Model 2: With Regularization and More Filters](#model-2-with-regularization-and-more-filters)
+        - [Model 3: Data Augmentation](#model-3-data-augmentation)
+        - [Model 4: Inception](#model-4-inception)
+        - [Model 5: EfficientNet](#model-5-efficientnet)
+4. [Conclusions](#conclusions)
+5. [PDF](#pdf)
 
-Lorem ipsum dolor sit amet, <a href="https://astro.build/">Astro</a> makes people happy. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin nibh nisl condimentum id venenatis a condimentum vitae. Dapibus ultrices in iaculis nunc. Arcu odio ut sem nulla pharetra diam sit amet. Diam quis enim lobortis scelerisque fermentum dui faucibus in ornare.
+## Introduction
 
-Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Eget gravida cum sociis natoque penatibus. Cras fermentum odio eu feugiat pretium nibh. Proin nibh nisl condimentum id venenatis. Porta nibh venenatis cras sed felis eget velit. Id diam vel quam elementum pulvinar etiam non.
+> Art is never finished, only abandoned. — Leonardo da Vinci
 
-### Level-three heading
+<br> This project aims to develop and identify the best Deep Learning (DL) model for classifying paintings based on their artistic movement (e.g., Renaissance, Impressionism, Realism). The classification requires detecting subtle details, making the depth of neural network layers and the number of parameters crucial for success. The motivation behind this project is to create a mobile application that can assist users in identifying the artistic style of a painting by simply taking a photograph of it. This could be especially useful in museums or for students of art history.
 
-Ultrices tincidunt arcu non sodales neque sodales ut. Sed enim ut sem viverra aliquet eget sit amet. Lacus luctus accumsan tortor posuere ac ut consequat semper viverra. Viverra accumsan in nisl nisi scelerisque eu ultrices. In massa tempor nec feugiat nisl pretium fusce.
+## Analysis of the Dataset
 
-### Level-three heading
+The dataset used is from the National Gallery of Art in Washington, D.C., chosen for its extensive collection and detailed metadata. The dataset was filtered to include only paintings and prints, classified into the top 10 artistic styles, resulting in 7,977 images. The use of a well-documented and open-access database ensures the reliability and reproducibility of the project.
 
-Sed pulvinar porttitor mi in ultricies. Etiam non dolor gravida eros pulvinar pellentesque et dictum ex. Proin eu ornare ligula, sed condimentum dui. Vivamus tincidunt tellus mi, sed semper ipsum pharetra a. Suspendisse sollicitudin at sapien nec volutpat. Etiam justo urna, laoreet ac lacus sed, ultricies facilisis dolor. Integer posuere, metus vel viverra gravida, risus elit ornare magna, id feugiat erat risus ullamcorper libero. Proin vitae diam auctor, laoreet lorem vitae, varius tellus.
+<img src="/assets/projects/paintingclassifier/styles.webp" alt="Style distribution of the dataset" style="float: right; width: 50%; margin-left: 2rem;" />
 
-Aenean pretium purus augue, ut bibendum erat convallis quis. Cras condimentum quis velit ac mollis. Suspendisse non purus fringilla, venenatis nisl porta, finibus odio. Curabitur aliquet metus faucibus libero interdum euismod. Morbi sed magna nisl. Morbi odio nibh, facilisis vel sapien eu, tempus tincidunt erat. Nullam erat velit, sagittis at purus quis, tristique scelerisque tortor. Pellentesque lacinia tortor id est aliquam viverra. Vestibulum et diam ac ipsum mollis fringilla.
+#### Study of the Database and Data Acquisition
 
-#### Level-four heading
+A thorough understanding of the entity-relationship model of the database was essential for selecting the relevant tables and fields. The central table 'objects' contains information on all listed artworks, while other tables provide additional metadata such as image links and classification terms. By understanding this model, we could effectively query and extract the necessary data for our project.
 
--   We noted this
--   And also this other point
+#### Data Filtering and Cleaning
+
+The dataset was filtered to retain only paintings and prints, reducing the total from 140,240 objects to 70,040. Further filtering to include only the top 10 artistic styles resulted in a final dataset of 7,977 images. This step involved removing irrelevant objects and ensuring that only those with sufficient metadata and images were included, thus enhancing the quality of the training data.
+
+#### Image Acquisition
+
+A Python script was used to download the images and organize them into folders corresponding to their artistic style. This automated process involved creating directories for each style and downloading images directly from the provided URLs, ensuring a systematic and efficient organization of the dataset for model training.
+
+#### Final Data Validation
+
+An expert in art history validated the final dataset to ensure accuracy. This involved reviewing random samples from each artistic style to confirm that the classification provided by the museum was correct. This step was crucial to ensure the reliability of the training and validation sets.
+
+#### Data Preparation
+
+The dataset was split into training and validation sets using a stratified approach to ensure balanced representation of each artistic style. This method ensured that each subset of data accurately reflected the distribution of styles in the overall dataset, which is critical for training robust and generalizable models.
+
+## Convolutional Neural Networks (CNN)
+
+Convolutional Neural Networks (CNNs) are a class of deep learning models particularly effective for image classification tasks. They are inspired by the visual processing mechanisms of the human brain and consist of multiple layers that automatically and adaptively learn spatial hierarchies of features from input images.
+
+<p align ="center"><img src="/assets/projects/paintingclassifier/layers.webp" alt="Layers of a CNN" style="width: 50%; margin-left: 2rem;" /></p>
+
+#### Key Components of CNNs
+
+-   **Convolutional Layers**: These layers apply convolution operations to the input image, using filters (or kernels) that slide over the image to detect various features such as edges, textures, and patterns.
+-   **Pooling Layers**: Typically used after convolutional layers, pooling layers reduce the spatial dimensions of the feature maps, thereby reducing the number of parameters and computational load.
+-   **Fully Connected Layers**: These layers are similar to traditional neural networks and are used to perform the final classification based on the features extracted by the convolutional and pooling layers.
+-   **Activation Functions**: Functions like ReLU (Rectified Linear Unit) introduce non-linearity to the model, enabling it to learn complex patterns.
+-   **Dropout Layers**: Used to prevent overfitting by randomly setting a fraction of input units to zero during training.
+
+<img src="/assets/projects/paintingclassifier/inception.webp" alt="Style distribution of the dataset" style="float: right; width: 50%; margin-left: 2rem;" />
+
+#### CNN Models
+
+We constructed a series of CNN models, each with varying complexity and regularization techniques, to evaluate their effectiveness in classifying paintings based on their artistic movement. Some of the architectures included:
+
+<ul><li>Standard Model without Regularization</li><li>With Regularization and More Filters</li><li>Data Augmentation</li><li>Inception</li><li>EfficientNet</li></ul>
+
+## Conclusions
+
+The EfficientNet-based model was the most successful, highlighting the effectiveness of transfer learning and pre-trained models. However, the overall accuracy suggests that further improvements are possible, potentially through expanding the dataset.
+
+<div style="display: flex; justify-content: center;">
+  <div style="margin: 10px;">
+    <img src="/assets/projects/paintingclassifier/goodpred.webp" alt="Good Prediction" style="max-width: 100%; height: auto;">
+  </div>
+  <div style="margin: 10px;">
+    <img src="/assets/projects/paintingclassifier/badpred.webp" alt="Bad Prediction" style="max-width: 100%; height: auto;">
+  </div>
+</div>
+
+## PDF
+
+Here you can find the extended analysis, including the results of the cross-validation and the comparison of the models.<br><br><br>
+
+<embed src="/assets/projects/paintingclassifier/paper.pdf" type="application/pdf" width="100%" height="600px" />
