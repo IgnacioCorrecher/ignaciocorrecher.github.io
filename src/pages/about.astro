@@ -141,6 +141,13 @@ import Hero from '../components/Hero.astro';
 			grid-column: 2;
 			font-size: var(--text-lg);
 		}
+	}
 
+	@media (max-width: 50em) {
+		.portrait_about{
+			aspect-ratio: 3 / 4;
+			object-fit: top;
+			margin: 20px;
+		}
 	}
 </style>

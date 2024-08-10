@@ -70,4 +70,4 @@ The Gradient Boosting (GBM) model emerged as the best performer with an accuracy
 
 Here you can find the extended analysis, including the results of the cross-validation and the comparison of the models.<br><br><br>
 
-<embed src="/assets/projects/genderpaygap/paper.pdf" type="application/pdf" width="100%" height="600px" />
+<embed src="/assets/projects/genderpaygap/GenderPayGap.pdf" type="application/pdf" width="100%" height="600px" />

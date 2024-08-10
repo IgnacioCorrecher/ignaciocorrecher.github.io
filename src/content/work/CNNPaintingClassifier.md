@@ -102,4 +102,4 @@ The EfficientNet-based model was the most successful, highlighting the effective
 
 Here you can find the extended analysis, including the results of the cross-validation and the comparison of the models.<br><br><br>
 
-<embed src="/assets/projects/paintingclassifier/paper.pdf" type="application/pdf" width="100%" height="600px" />
+<embed src="/assets/projects/paintingclassifier/PaintingClassifierCNN.pdf" type="application/pdf" width="100%" height="600px" />
