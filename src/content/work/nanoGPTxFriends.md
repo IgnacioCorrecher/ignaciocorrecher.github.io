@@ -1,8 +1,8 @@
 ---
-title: CNN Painting Classifier
-publishDate: 2023-09-01
-img: /assets/projects/paintingclassifier/header.webp
-img_alt: Mona Lisa
+title: nanoGPT x Friends
+publishDate: 2023-12-01
+img: /assets/projects/nanoGPTxFriends/header.webp
+img_alt: Friends Logo
 description: |
     We analyzed the gender pay gap in the US, visualized the data and developed several models to predict gender based on several factors.
 tags:
