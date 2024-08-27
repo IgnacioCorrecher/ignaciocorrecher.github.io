@@ -133,23 +133,9 @@ declare module 'astro:content' {
   collection: "work";
   data: InferEntrySchema<"work">
 } & { render(): Render[".md"] };
-"ChurnModel.md": {
-	id: "ChurnModel.md";
-  slug: "churnmodel";
-  body: string;
-  collection: "work";
-  data: InferEntrySchema<"work">
-} & { render(): Render[".md"] };
 "GenderPayGap.md": {
 	id: "GenderPayGap.md";
   slug: "genderpaygap";
-  body: string;
-  collection: "work";
-  data: InferEntrySchema<"work">
-} & { render(): Render[".md"] };
-"RedditNLP.md": {
-	id: "RedditNLP.md";
-  slug: "redditnlp";
   body: string;
   collection: "work";
   data: InferEntrySchema<"work">
