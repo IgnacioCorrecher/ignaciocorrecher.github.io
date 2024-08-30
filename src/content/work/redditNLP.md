@@ -9,67 +9,62 @@ tags:
     - Visualization
     - Machine Leaning
     - R
-pinned: false
+pinned: true
 github: https://github.com/IgnacioCorrecher/reddit_NLP
 ---
 
-# Table of Contents
+## Table of Contents
 
-1. [Context and introduction](#context-and-introduction)
-2. [Variable Selection](#variable-selection)
-3. [Tuning algorithms](#tuning-algorithms)
-4. [Conclusion](#conclusion)
-5. [PDF](#pdf)
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Results](#results)
+    - [Overall Sentiment Distribution](#overall-sentiment-distribution)
+    - [Subreddit Sentiment Analysis](#subreddit-sentiment-analysis)
+    - [Key Insights](#key-insights)
 
-<a name="context-and-introduction"></a>
+## Overview
 
-## Context and introduction
+`reddit_NLP` is a data science project focused on sentiment analysis of Reddit comments. This project processes a large dataset of 1 million comments from various subreddits and performs sentiment analysis to understand the overall mood and opinions expressed by users.
 
-The dataset titled “The Gender Pay Gap in the General Social Survey” was obtained from [this source](https://vincentarelbundock.github.io/). It contains information on individuals surveyed between 1974 and 2018, including their gender, occupation, age, education level, and more. The primary objective is to study and predict the gender variable, representing the individual's gender.
+## Features
 
-<a name="variable-selection"></a>
+-   **Data Collection**: Utilizes Reddit's API to scrape 1 million comments from a diverse range of subreddits.
+-   **Sentiment Analysis**: Implements various sentiment analysis techniques to classify comments as positive, negative, or neutral.
+-   **Data Visualization**: Provides visual insights into the sentiment distribution across different subreddits and time periods.
+-   **Customizable Parameters**: Allows users to adjust the number of comments or subreddits for data collection.
 
-## Variable Selection
+## Results
 
-After reducing the dataset to 5000 observations while maintaining the original gender proportion, an exploratory visual analysis was conducted. Variables were categorized into continuous, categorical, and dependent variables, with the output variable coded as Yes/No based on gender. Missing values in the salary variable (realrinc) were imputed using the median of the respective occupational group.
+The sentiment analysis of 1 million Reddit comments yielded insightful results about user opinions across various subreddits. Key findings include:
 
-To identify significant variables, a stepwise AIC method was employed, followed by repeated stepwise selection to refine the list. The final important variables included work status, occupation codes, realrinc, age, and several marital and prestige score categories.
+### Overall Sentiment Distribution
 
-<a name="tuning-algorithms"></a>
+<img src="/assets/projects/redditNLP/overall_sentiment.png" alt="Overall Sentiment Distribution" style="float: right; width: 50%; margin-left: 2rem;" />
 
-## Tuning algorithms
+The analysis revealed the following sentiment breakdown:
 
-#### Neural Networks
+-   Negative: 67.84%
+-   Positive: 32.16%
 
-A grid search was performed to optimize the number of nodes and learning rate for the avNNet model, with the best results achieved using size = 5 and decay = 0.01. Further tuning with 250 iterations improved model performance.
+This distribution suggests that Reddit comments tend to lean more towards negative sentiment, with about two-thirds of the analyzed comments classified as negative.
+<br><br><br><br><br><br><br><br><br>
 
-#### Bagging and Random Forest
+### Subreddit Sentiment Analysis
 
-Random Forest models were tuned for the mtry parameter, with the best accuracy achieved using mtry = 9. The importance of variables like occ10, work status, realrinc, and age was highlighted.
+<p align ="center"><img src="/assets/projects/redditNLP/subreddit_sentiment.png" alt="Layers of a CNN" style="width: 80%; margin-left: 2rem;" /></p>
 
-#### Gradient Boosting
+The sentiment distribution varies across different subreddits, as visualized in the chart above. This analysis helps identify which subreddits tend to have more positive or negative discussions.
 
-Optimal parameters for the GBM model were determined using a grid search, with the best results obtained using n.trees = 5000, shrinkage = 0.05, and n.minobsinnode = 20. Variable importance analysis showed that occ10, realrinc, work status, and age were the most significant.
+### Key Insights
 
-#### Support Vector Machines (SVM)
+1. The overall negative sentiment bias (67.84%) could be indicative of the critical nature of discussions on Reddit or reflect the topics that were most discussed during the data collection period.
 
-Linear, polynomial, and radial basis function (RBF) SVMs were tuned for optimal parameters, with the polynomial SVM showing the best performance among the SVM models.
-<img src="/assets/projects/genderpaygap/model-comparison.webp" alt="Model Comparison" style="float: right; width: 50%; margin: 2rem 2rem;" />
+2. Despite the overall negative trend, nearly a third of comments (32.16%) express positive sentiment, showing that there's still a significant amount of positive interaction on the platform.
 
-#### Model Comparison and Ensemble
+3. The variation in sentiment across subreddits (as shown in the subreddit sentiment distribution chart) suggests that the topic or community significantly influences the tone of discussions.
 
-A comparative analysis using cross-validation showed that the GBM model consistently outperformed other models in terms of accuracy and AUC. Ensembles of the top models were also evaluated, further confirming GBM as the best model.
+4. This analysis provides a foundation for more in-depth studies, such as investigating reasons behind sentiment trends in specific subreddits or tracking sentiment changes over time.
 
-<a name="conclusion"></a>
+These results offer valuable insights into public opinion and discourse trends on Reddit, which can be useful for various applications such as market research, social studies, or platform moderation strategies.
 
-## Conclusion
-
-The Gradient Boosting (GBM) model emerged as the best performer with an accuracy of approximately 0.88. This model provided the highest AUC and the lowest error rate, making it the preferred choice for predicting gender based on the available dataset.
-
-<a name="pdf"></a>
-
-## PDF
-
-Here you can find the extended analysis, including the results of the cross-validation and the comparison of the models.<br><br><br>
-
-<embed src="/assets/projects/genderpaygap/GenderPayGap.pdf" type="application/pdf" width="100%" height="600px" />
+To explore the data further or to see examples of positive and negative comments, run the `visualize_results.py` script, which provides sample comments for each sentiment category.

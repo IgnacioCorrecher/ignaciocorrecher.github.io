@@ -9,16 +9,33 @@ const { repoUrl } = Astro.props;
 // Extract username and repo name from the URL
 const [, , , username, repoName] = repoUrl.split('/');
 
+// GitHub Personal Access Token
+const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+
+// Function to make authenticated requests
+async function fetchGitHubAPI(url: string) {
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `token ${GITHUB_TOKEN}`,
+      'User-Agent': 'YourAppName',
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`GitHub API request failed: ${response.status}`);
+  }
+  return response;
+}
+
 // Fetch repository data from GitHub API
-const repoResponse = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
+const repoResponse = await fetchGitHubAPI(`https://api.github.com/repos/${username}/${repoName}`);
 const repoData = await repoResponse.json();
 
 // Fetch user data to get the profile image
-const userResponse = await fetch(`https://api.github.com/users/${username}`);
+const userResponse = await fetchGitHubAPI(`https://api.github.com/users/${username}`);
 const userData = await userResponse.json();
 
 // Fetch commit count
-const commitsResponse = await fetch(`https://api.github.com/repos/${username}/${repoName}/commits?per_page=1`);
+const commitsResponse = await fetchGitHubAPI(`https://api.github.com/repos/${username}/${repoName}/commits?per_page=1`);
 const commitCount = commitsResponse.headers.get('Link')
   ? parseInt(commitsResponse.headers.get('Link').match(/page=(\d+)>; rel="last"/)[1])
   : 1;

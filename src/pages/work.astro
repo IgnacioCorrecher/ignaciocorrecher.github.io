@@ -27,14 +27,21 @@ const projects = (await getCollection('work')).map(project => ({
 				tagline="Some of my last personal projects worth posting here."
 				align="start"
 			/>
+			<div class="search-container">
+				<input type="text" id="searchBar" placeholder="Search projects..." />
+				<select id="tagSelector">
+					<option value="">All Technologies</option>
+					{[...new Set(projects.flatMap(p => p.data.tags))].map(tag => (
+						<option value={tag}>{tag}</option>
+					))}
+				</select>
+			</div>
 			<div class="gallery">
 				<div class="grid">
 				{projects.map((project) => (
-				  <Fragment key={project.slug} class="grid-item">
-					
-					  <PortfolioPreview project={project} />
-					
-				  </Fragment>
+				  <div class="grid-item" data-tags={project.data.tags.join(',')}>
+					<PortfolioPreview project={project} />
+				  </div>
 				))}
 			  </div>
 			</div>
@@ -43,27 +50,144 @@ const projects = (await getCollection('work')).map(project => ({
 	</div>
 </BaseLayout>
 
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+	  const searchBar = document.getElementById('searchBar') as HTMLInputElement;
+	  const tagSelector = document.getElementById('tagSelector') as HTMLSelectElement;
+	  const projectElements = document.querySelectorAll('.grid-item');
+
+	  function filterProjects() {
+		const searchTerm = searchBar.value.toLowerCase();
+		const selectedTag = tagSelector.value.toLowerCase();
+
+		projectElements.forEach((el) => {
+		  const titleElement = el.querySelector('.title');
+		  if (titleElement) {
+			const title = titleElement.textContent?.toLowerCase() || '';
+			const tags = (el.getAttribute('data-tags') || '').toLowerCase().split(',');
+
+			const matchesSearch = title.includes(searchTerm);
+			const matchesTag = selectedTag === '' || tags.includes(selectedTag);
+
+			(el as HTMLElement).style.display = matchesSearch && matchesTag ? 'flex' : 'none';
+		  }
+		});
+	  }
+
+	  searchBar.addEventListener('input', filterProjects);
+	  tagSelector.addEventListener('change', filterProjects);
+
+	  // Initial filter
+	  filterProjects();
+	});
+  </script>
+
 <style>
 	.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-  }
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
 
-  .grid-item {
-    display: flex;
-    justify-content: center;
-  }
+	.grid-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100%;
+	}
 
-  @media (min-width: 50em) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr); /* 2 columns on larger screens */
-      grid-auto-flow: dense;
-    }
+	.grid-item :global(a) {
+		width: 100%;
+		text-decoration: none;
+		color: inherit;
+	}
 
-    .grid-item:nth-child(1) {
-      grid-column: span 2;
-    }
+	.grid-item :global(img) {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		object-position: center;
+	}
 
+	.search-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 2rem;
+	}
+
+	#searchBar {
+		width: 40%;
+		max-width: 400px;
+		padding: 0.75rem;
+		font-size: 1rem;
+		border: 1px solid var(--gray-300);
+		border-radius: 12px;
+		background-color: var(--gray-999);
+		color: var(--gray-200);
+		transition: box-shadow 0.3s ease, width 0.3s ease;
+	}
+
+	#searchBar:focus {
+		outline: none;
+		box-shadow: 0 1px 6px rgba(32,33,36,.28);
+		width: 45%;
+	}
+
+	#tagSelector {
+		padding: 0.75rem;
+		font-size: 1rem;
+		border: 1px solid var(--gray-300);
+		border-radius: 12px;
+		background-color: var(--gray-999);
+		color: var(--gray-200);
+		transition: box-shadow 0.3s ease;
+		min-width: 150px;
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0.7rem top 50%;
+		background-size: 1rem auto;
+		padding-right: 2.5rem;
+	}
+
+	#tagSelector:focus {
+		outline: none;
+		box-shadow: 0 1px 6px rgba(32,33,36,.28);
+	}
+
+	/* Dark theme adjustments */
+	:root.theme-dark #searchBar,
+	:root.theme-dark #tagSelector {
+		background-color: var(--gray-800);
+		color: var(--gray-200);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root:not(.theme-light) #searchBar,
+		:root:not(.theme-light) #tagSelector {
+		background-color: var(--gray-800);
+		color: var(--gray-200);
+		}
+	}
+
+	@media (min-width: 50em) {
+		.grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.search-container {
+			flex-direction: column;
+		}
+
+		#searchBar, #tagSelector {
+			width: 100%;
+			max-width: none;
+		}
 	}
 </style>

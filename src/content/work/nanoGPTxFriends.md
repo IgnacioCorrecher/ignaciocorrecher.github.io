@@ -22,7 +22,6 @@ github: https://github.com/IgnacioCorrecher/nanoGPTxFRIENDS
 4.  [nanoGPT Model Explanation](#nanogpt-model-explanation)
 5.  [Results](#results)
 6.  [Acknowledgements](#acknowledgements)
-7.  [Repository](#repository)
 
 ## Introduction
 
@@ -116,9 +115,3 @@ This project was inspired by:
 -   [Attention is All You Need](https://arxiv.org/abs/1706.03762) by Vaswani et al.
 -   [Andrej Karpathy's YouTube series](https://www.youtube.com/channel/UC6e2mP01ZLH_kbAyeazCNdg)
 -   [Friends TV Show Script dataset](https://www.kaggle.com/datasets/rezaghari/friends-series-dataset)
-
-## Repository
-
-You can view and clone the project repository directly from GitHub:
-
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/IgnacioCorrecher/nanoGPTxFRIENDS)

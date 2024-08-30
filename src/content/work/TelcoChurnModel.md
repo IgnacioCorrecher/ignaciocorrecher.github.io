@@ -29,7 +29,6 @@ The project follows a structured approach that includes data analysis, model dev
 4.  [Machine Learning Models](#machine-learning-models)
 5.  [Industrialization](#industrialization)
 6.  [Results and Conclusions](#results-and-conclusions)
-7.  [Repository](#repository)
 
 ## Context
 
@@ -116,9 +115,3 @@ Potential improvements include moving from binary classification to a probabilis
 ## Conclusion
 
 The Churn Prediction Model provides a robust framework for identifying customers at risk of leaving. By leveraging machine learning, the solution offers actionable insights that can be used to enhance customer retention strategies, ultimately driving business success.
-
-## Repository
-
-You can view and clone the project repository directly from GitHub:
-
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/IgnacioCorrecher/churn-model-SDG)
