@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
-
 import ContactCTA from '../components/ContactCTA.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
 import Hero from '../components/Hero.astro';
@@ -14,6 +13,8 @@ const projects = (await getCollection('work')).map(project => ({
     publishDate: new Date(project.data.publishDate),
   },
 })).sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
 ---
 
 <BaseLayout
@@ -31,7 +32,7 @@ const projects = (await getCollection('work')).map(project => ({
 				<input type="text" id="searchBar" placeholder="Search projects..." />
 				<select id="tagSelector">
 					<option value="">All Technologies</option>
-					{[...new Set(projects.flatMap(p => p.data.tags))].map(tag => (
+					{allTags.map(tag => (
 						<option value={tag}>{tag}</option>
 					))}
 				</select>
@@ -51,10 +52,15 @@ const projects = (await getCollection('work')).map(project => ({
 </BaseLayout>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
+	function setupFilters() {
 	  const searchBar = document.getElementById('searchBar') as HTMLInputElement;
 	  const tagSelector = document.getElementById('tagSelector') as HTMLSelectElement;
 	  const projectElements = document.querySelectorAll('.grid-item');
+
+	  if (!searchBar || !tagSelector) {
+		console.error('Search bar or tag selector not found');
+		return;
+	  }
 
 	  function filterProjects() {
 		const searchTerm = searchBar.value.toLowerCase();
@@ -79,8 +85,11 @@ const projects = (await getCollection('work')).map(project => ({
 
 	  // Initial filter
 	  filterProjects();
-	});
-  </script>
+	}
+
+	// Use 'load' event to ensure all resources are loaded
+	window.addEventListener('load', setupFilters);
+</script>
 
 <style>
 	.grid {
