@@ -10,14 +10,14 @@ const { repoUrl } = Astro.props;
 const [, , , username, repoName] = repoUrl.split('/');
 
 // GitHub Personal Access Token
-const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+const GITHUB_TOKEN = import.meta.env.GH_API_KEY;  // Use the correct environment variable name
 
 // Function to make authenticated requests
 async function fetchGitHubAPI(url: string) {
   const response = await fetch(url, {
     headers: {
       Authorization: `token ${GITHUB_TOKEN}`,
-      'User-Agent': 'YourAppName',
+      'User-Agent': 'YourAppName',  // Optional: Customize your app name
     },
   });
   if (!response.ok) {
@@ -79,7 +79,7 @@ const formatNumber = (num: number) => {
     border-radius: 6px;
     padding: 16px;
     margin-top: 20px;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   }
 
   .header {
