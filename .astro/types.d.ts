@@ -140,9 +140,23 @@ declare module 'astro:content' {
   collection: "work";
   data: InferEntrySchema<"work">
 } & { render(): Render[".md"] };
+"TelcoChurnModel.md": {
+	id: "TelcoChurnModel.md";
+  slug: "telcochurnmodel";
+  body: string;
+  collection: "work";
+  data: InferEntrySchema<"work">
+} & { render(): Render[".md"] };
 "nanoGPTxFriends.md": {
 	id: "nanoGPTxFriends.md";
   slug: "nanogptxfriends";
+  body: string;
+  collection: "work";
+  data: InferEntrySchema<"work">
+} & { render(): Render[".md"] };
+"redditNLP.md": {
+	id: "redditNLP.md";
+  slug: "redditnlp";
   body: string;
   collection: "work";
   data: InferEntrySchema<"work">

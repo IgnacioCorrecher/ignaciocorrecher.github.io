@@ -10,6 +10,7 @@ tags:
     - Visualization
     - Machine Leaning
     - R
+pinned: true
 ---
 
 ## Table of Contents

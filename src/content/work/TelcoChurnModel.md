@@ -1,8 +1,8 @@
 ---
-title: Gender Pay Gap Analysis
-publishDate: 2023-06-29
-img: /assets/projects/genderpaygap/header.webp
-img_alt: Gender Pay Gap
+title: Telco Churn Model
+publishDate: 2024-07-01
+img: /assets/projects/telcochurnmodel/header.webp
+img_alt: Telco Churn Model
 description: We analyzed the gender pay gap in the US, visualized the data and developed several models to predict gender based on several factors.
 tags:
     - Data Cleaning

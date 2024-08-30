@@ -18,19 +18,16 @@ import Skills from '../components/Skills.astro';
 const allProjects = await getCollection('work');
 
 const projects = allProjects
-  .map(project => {
-    const publishDate = new Date(project.data.publishDate);
-    console.log(`Project: ${project.data.title}, Publish Date: ${publishDate}`);
-    return {
-      ...project,
-      data: {
-        ...project.data,
-        publishDate,
-      },
-    };
-  })
-  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()) // Use getTime() for accurate sorting
-  .slice(0, 4); 
+  .map(project => ({
+    ...project,
+    data: {
+      ...project.data,
+      publishDate: new Date(project.data.publishDate),
+    },
+  }))
+  .filter(project => project.data.pinned === true) // Only keep projects with pinned: true
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 4); // Still limit to 4 projects, but now prioritizing pinned ones
 ---
 
 <BaseLayout>
