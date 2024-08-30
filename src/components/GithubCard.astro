@@ -1,0 +1,132 @@
+---
+// src/components/GithubCard.astro
+interface Props {
+  repoUrl: string;
+}
+
+const { repoUrl } = Astro.props;
+
+// Extract username and repo name from the URL
+const [, , , username, repoName] = repoUrl.split('/');
+
+// Fetch repository data from GitHub API
+const repoResponse = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
+const repoData = await repoResponse.json();
+
+// Fetch user data to get the profile image
+const userResponse = await fetch(`https://api.github.com/users/${username}`);
+const userData = await userResponse.json();
+
+// Fetch commit count
+const commitsResponse = await fetch(`https://api.github.com/repos/${username}/${repoName}/commits?per_page=1`);
+const commitCount = commitsResponse.headers.get('Link')
+  ? parseInt(commitsResponse.headers.get('Link').match(/page=(\d+)>; rel="last"/)[1])
+  : 1;
+
+// Format numbers
+const formatNumber = (num: number) => {
+  return num >= 1000 ? (num / 1000).toFixed(1) + 'k' : num;
+};
+---
+
+<div class="github-card">
+  <div class="header">
+    <img src={userData.avatar_url} alt={username} class="avatar" />
+    <h3><a href={repoUrl} target="_blank" rel="noopener noreferrer">{repoData.full_name}</a></h3>
+  </div>
+  <p class="description">{repoData.description}</p>
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-icon">⭐</span>
+      <span>{formatNumber(repoData.stargazers_count)} stars</span>
+    </div>
+    <div class="stat">
+      <span class="stat-icon">👀</span>
+      <span>{formatNumber(repoData.watchers_count)} watchers</span>
+    </div>
+    <div class="stat">
+      <span class="stat-icon">📝</span>
+      <span>{formatNumber(commitCount)} commits</span>
+    </div>
+  </div>
+  <div class="language">
+    <span class="language-dot" style={`background-color: ${repoData.language ? '#f1e05a' : '#cccccc'};`}></span>
+    <span>{repoData.language || 'Not specified'}</span>
+  </div>
+</div>
+
+<style>
+  .github-card {
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 16px;
+    margin-top: 20px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  h3 {
+    color: #58a6ff;
+    font-size: 18px;
+    margin: 0;
+  }
+
+  h3 a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  h3 a:hover {
+    text-decoration: underline;
+  }
+
+  .description {
+    color: #c9d1d9;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .stat {
+    display: flex;
+    align-items: center;
+    color: #8b949e;
+    font-size: 12px;
+  }
+
+  .stat-icon {
+    margin-right: 4px;
+  }
+
+  .language {
+    display: flex;
+    align-items: center;
+    color: #8b949e;
+    font-size: 12px;
+  }
+
+  .language-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 4px;
+  }
+</style>

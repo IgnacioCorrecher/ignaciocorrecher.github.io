@@ -1,8 +1,8 @@
 ---
 title: Reddit NLP
 publishDate: 2024-08-20
-img: /assets/projects/telcochurnmodel/header.webp
-img_alt: Telco Churn Model
+img: /assets/projects/redditNLP/header.webp
+img_alt: Reddit Icon
 description: We analyzed the gender pay gap in the US, visualized the data and developed several models to predict gender based on several factors.
 tags:
     - Data Cleaning
@@ -10,6 +10,7 @@ tags:
     - Machine Leaning
     - R
 pinned: false
+github: https://github.com/IgnacioCorrecher/reddit_NLP
 ---
 
 # Table of Contents
